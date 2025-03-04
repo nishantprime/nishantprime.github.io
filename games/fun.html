@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Music Tap</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400" rel="stylesheet">
+    <link rel="stylesheet" href="css/mikutap.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@3.0.11/bin/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@1.19.1/src/minified/TweenMax.min.js"></script>
+    <script src="js/mikutap.js"></script>
+</head>
+<body>
+    <div id="view"></div>
+    <div id="scene_top">
+        <h1>Music Tap</h1>
+        <p id="bt_start"><a href="#">START</a></p>
+        <p id="bt_about"><a href="#">ABOUT</a></p>
+    </div>
+    <div id="scene_loading"><hr size="1" color="#fff"></div>
+    <div id="scene_main">
+        <div class="set">
+            <p class="attention">CLICK & DRAG or PRESS ANY KEY!</p>
+            <p id="bt_feedback"><a href="#">FEEDBACK: ON</a></p>
+            <p id="bt_backtrack"><a href="#">BACKTRACK: ON</a></p>
+        </div>
+    </div>
+    <div id="about_cover"></div>
+    <div id="about">
+        <div id="about_in">
+            <p class="close"><span id="bt_close">×</span></p>
+            <p class="con">Created by <a href="#">Your Name</a></p>
+        </div>
+    </div>
+</body>
+</html>
