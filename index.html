@@ -1,292 +1,384 @@
----
-layout: null
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nishant Kumar | IIT Delhi</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nishant Kumar | 3rd Year IITD</title>
+<style>
+  :root {
+    --bg: #0b0d1a;
+    --panel: rgba(22, 26, 54, 0.4);
+    --panel-border: rgba(35, 42, 85, 0.8);
+    --text: #e8ecff;
+    --muted: #8a94b5;
+    --accent: #6ee7ff;
+    --accent-2: #a78bfa;
+    --bar: #2b3168;
+    --bar-active: #6ee7ff;
+    --bar-pivot: #ff7ab6;
+    --bar-swap: #ffd166;
+    --bar-done: #4ade80;
+  }
 
-        :root {
-            --primary: #ff0076;
-            --secondary: #590fb7;
-            --accent: #ffd600;
-        }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    background: radial-gradient(circle at center, #131731 0%, var(--bg) 100%);
+  }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  /* Glassmorphism Panels */
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: absolute;
+  }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            color: white;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
+  /* Typography */
+  h1 { font-family: 'Fira Code', 'JetBrains Mono', monospace; font-size: 26px; margin-bottom: 6px; letter-spacing: -0.5px;}
+  h2 { font-size: 14px; color: var(--muted); margin-bottom: 12px; font-weight: 500; font-family: monospace; text-transform: uppercase; letter-spacing: 1px;}
+  .gradient-text {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .typewriter {
+    font-family: 'Fira Code', monospace;
+    color: var(--accent-2);
+    font-size: 13px;
+    min-height: 20px;
+    margin-top: 10px;
+  }
+  .typewriter::after { content: '|'; animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+  /* 1. Top Left: Hero */
+  #hero { top: 40px; left: 40px; min-width: 280px; }
 
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 3rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: floatIn 1s ease-out forwards;
-            max-width: 90%;
-            width: 500px;
-            z-index: 10;
-        }
+  /* 2. Top Right: Repos (Fixed Overlap) */
+  #repos { 
+    top: 40px; 
+    right: 40px; 
+    width: 340px; 
+    max-height: 50vh; 
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: absolute;
+  }
+  
+  #repos::-webkit-scrollbar { width: 4px; }
+  #repos::-webkit-scrollbar-thumb { background: var(--panel-border); border-radius: 4px; }
+  
+  .repo-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 16px;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+  }
+  .repo-card:hover { border-color: var(--accent); }
+  .repo-card h3 { font-family: monospace; color: var(--accent); font-size: 14px; margin-bottom: 6px; }
+  .repo-card p { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+  .repo-tag { 
+    font-size: 10px; 
+    font-family: monospace; 
+    background: rgba(167, 139, 250, 0.15); 
+    color: var(--accent-2); 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    display: inline-block;
+  }
 
-        @keyframes floatIn {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+  /* 3. Bottom Left: Terminal Links */
+  #links { bottom: 40px; left: 40px; min-width: 280px; display: flex; flex-direction: column; gap: 12px; }
+  #links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  #links a:hover { color: var(--accent); transform: translateX(5px); }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+  /* 4. Bottom Right: Raw Quicksort Visualizer */
+  #quicksort { 
+    position: absolute;
+    bottom: 0; 
+    right: 0; 
+    width: 45vw; /* Massive span across the right bottom */
+    height: 160px; 
+  }
+  #quicksort h2 {
+    position: absolute;
+    top: -30px;
+    right: 30px;
+  }
+  .bars-container {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    gap: 1px;
+  }
+  .bar {
+    flex: 1;
+    background: var(--bar);
+    border-radius: 2px 2px 0 0;
+  }
+  .bar.active { background: var(--bar-active); }
+  .bar.pivot { background: var(--bar-pivot); }
+  .bar.swap { background: var(--bar-swap); }
+  .bar.done { background: var(--bar-done); }
 
-        .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            font-weight: 300;
-            opacity: 0.9;
-        }
+  /* 5. Spider-Verse Teleporting Engine */
+  #pet-container {
+    position: fixed;
+    bottom: 20px;
+    left: 400px;
+    height: 160px;
+    z-index: 999;
+    pointer-events: none; 
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+    transition: left 0.1s ease-out; /* Slight snap effect on teleport */
+  }
+  #pet-container img {
+    height: 100%;
+    width: auto;
+  }
 
-        .tags {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .tag {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            cursor: default;
-        }
-
-        .tag:hover {
-            background: white;
-            color: var(--secondary);
-            transform: scale(1.1);
-        }
-
-        .fun-btn {
-            background: var(--accent);
-            color: #333;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.1s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            font-family: 'Poppins', sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .fun-btn:active {
-            transform: scale(0.95);
-        }
-
-        .fun-btn:hover {
-            background: #ffe033;
-        }
-
-        .sudoku-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            padding: 10px 20px;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .sudoku-btn:hover {
-            background: white;
-            color: var(--secondary);
-            transform: scale(1.05);
-        }
-
-        /* Floating Shapes */
-        .shape {
-            position: absolute;
-            filter: blur(1px);
-            z-index: 1;
-            animation: floatShape 20s infinite linear;
-            opacity: 0.6;
-        }
-
-        .shape:nth-child(1) { top: 10%; left: 10%; animation-duration: 25s; }
-        .shape:nth-child(2) { top: 70%; left: 80%; animation-duration: 20s; }
-        .shape:nth-child(3) { top: 40%; left: 20%; animation-duration: 30s; }
-        .shape:nth-child(4) { top: 80%; left: 10%; animation-duration: 22s; }
-
-        @keyframes floatShape {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -50px) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) rotate(240deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
-        }
-
-    </style>
+  @media (max-width: 900px) {
+    #repos { display: none; } 
+    #quicksort { width: 100vw; } /* On mobile, it spans the whole bottom */
+  }
+</style>
 </head>
 <body>
 
-    <div class="shape">🚀</div>
-    <div class="shape" style="font-size: 2rem">💻</div>
-    <div class="shape" style="font-size: 3rem">🎵</div>
-    <div class="shape" style="font-size: 1.5rem">✨</div>
+  <!-- Top Left: Hero -->
+  <div id="hero" class="panel">
+    <h1>Nishant Kumar</h1>
+    <h2>3rd Year <span class="gradient-text">@ IIT Delhi</span></h2>
+    <div class="typewriter" id="typewriter"></div>
+  </div>
 
-    <a href="sudoku.html" class="sudoku-btn">🧩 Play Sudoku</a>
-
-    <div class="container">
-        <h1>Hi, I'm Nishant</h1>
-        <div class="subtitle">Building cool stuff & breaking things 😅</div>
-
-        <div class="tags">
-            <span class="tag" onmouseenter="playNote(300)">🎓 2nd Year</span>
-            <span class="tag" onmouseenter="playNote(400)">🏛️ IIT Delhi</span>
-            <span class="tag" onmouseenter="playNote(500)">🎂 19 Years Old</span>
-        </div>
-
-        <button class="fun-btn" onclick="partyTime()">🎉 Click for Magic!</button>
+  <!-- Top Right: Repositories -->
+  <div id="repos">
+    <div class="repo-card" onclick="window.open('https://github.com/nishantprime', '_blank')">
+      <h3>> Neural_Architecture</h3>
+      <p>High-performance feedforward implementation from scratch with backpropagation matrices.</p>
+      <span class="repo-tag">Python</span>
     </div>
+    <div class="repo-card" onclick="window.open('https://github.com/nishantprime', '_blank')">
+      <h3>> CP_Algorithms</h3>
+      <p>My competitive programming template library including Fenwick trees, Segment trees, and LCA.</p>
+      <span class="repo-tag">C++</span>
+    </div>
+    <div class="repo-card" onclick="window.open('https://github.com/nishantprime', '_blank')">
+      <h3>> Trade_Execution_Engine</h3>
+      <p>Low-latency synthetic limit order book matching engine simulator.</p>
+      <span class="repo-tag">C++</span>
+    </div>
+  </div>
 
-    <script>
-        // Sound Synthesis
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  <!-- Bottom Left: Terminal Links -->
+  <div id="links" class="panel">
+    <h2>Terminal Links</h2>
+    <a href="https://github.com/nishantprime" target="_blank">> GitHub</a>
+    <a href="https://www.linkedin.com/in/nishantkumarprime" target="_blank">> LinkedIn</a>
+    <a href="https://codeforces.com/profile/nishantprime" target="_blank">> Codeforces</a>
+    <a href="https://leetcode.com/u/nishantprime/" target="_blank">> LeetCode</a>
+    <a href="mailto:nishantkumarprime@gmail.com">> Email</a>
+  </div>
 
-        function playNote(freq, type = 'sine') {
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            const oscillator = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
+  <!-- Bottom Right: Raw Ambient Quicksort -->
+  <div id="quicksort">
+    <h2>> QUICKSORT (LOMUTO)</h2>
+    <div class="bars-container" id="bars-container"></div>
+  </div>
 
-            oscillator.type = type;
-            oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  <!-- Animated Web Pet -->
+  <div id="pet-container">
+    <img id="pet-img" src="stand.png" alt="Spider Noir">
+  </div>
 
-            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+<script>
+  // 1. Typewriter Engine
+  const words = ["> Mathematics", "> Competitive Programming", "> SDE", "> Algorithms", "> AI", "> Machine Learning", "> Physics", "> Tech"];
+  let i = 0, j = 0, isDeleting = false;
+  const tw = document.getElementById('typewriter');
+  
+  function type() {
+    const current = words[i];
+    if (isDeleting) {
+      tw.innerText = current.substring(0, j - 1);
+      j--;
+    } else {
+      tw.innerText = current.substring(0, j + 1);
+      j++;
+    }
+    
+    let speed = isDeleting ? 30 : 100;
+    if (!isDeleting && j === current.length) {
+      speed = 1500;
+      isDeleting = true;
+    } else if (isDeleting && j === 0) {
+      isDeleting = false;
+      i = (i + 1) % words.length;
+      speed = 500;
+    }
+    setTimeout(type, speed);
+  }
+  type();
 
-            oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+  // 2. Ambient Quicksort (Optimized visual loop)
+  const container = document.getElementById('bars-container');
+  let arr = [];
+  const barCount = 100; // Increased density for larger window width
+  
+  function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+  
+  function generateArray() {
+    arr = Array.from({length: barCount}, () => Math.floor(Math.random() * 90) + 10);
+    container.innerHTML = '';
+    arr.forEach(val => {
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.height = `${val}%`;
+      container.appendChild(bar);
+    });
+  }
 
-            oscillator.start();
-            oscillator.stop(audioCtx.currentTime + 0.5);
-        }
+  async function quicksort(lo, hi) {
+    if (lo < hi) {
+      const p = await partition(lo, hi);
+      await quicksort(lo, p - 1);
+      await quicksort(p + 1, hi);
+    }
+    if(lo === hi && container.children[lo]) container.children[lo].className = 'bar done';
+  }
 
-        function playMelody() {
-            const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880.00];
-            notes.forEach((note, index) => {
-                setTimeout(() => {
-                    playNote(note, 'triangle');
-                }, index * 100);
-            });
-        }
+  async function partition(lo, hi) {
+    const pivot = arr[hi];
+    container.children[hi].className = 'bar pivot';
+    let i = lo;
+    
+    for (let j = lo; j < hi; j++) {
+      container.children[j].className = 'bar active';
+      await sleep(20); // Fast ambient execution
+      
+      if (arr[j] < pivot) {
+        container.children[i].className = 'bar swap';
+        container.children[j].className = 'bar swap';
+        await sleep(20);
+        
+        let temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        
+        container.children[i].style.height = `${arr[i]}%`;
+        container.children[j].style.height = `${arr[j]}%`;
+        
+        container.children[i].className = 'bar';
+        container.children[j].className = 'bar';
+        i++;
+      } else {
+        container.children[j].className = 'bar';
+      }
+    }
+    
+    container.children[i].className = 'bar swap';
+    container.children[hi].className = 'bar swap';
+    await sleep(30);
+    
+    let temp = arr[i];
+    arr[i] = arr[hi];
+    arr[hi] = temp;
+    
+    container.children[i].style.height = `${arr[i]}%`;
+    container.children[hi].style.height = `${arr[hi]}%`;
+    
+    container.children[hi].className = 'bar';
+    container.children[i].className = 'bar done'; 
+    return i;
+  }
 
-        // Confetti / Particles
-        function partyTime() {
-            playMelody();
+  async function ambientSort() {
+    while(true) {
+      generateArray();
+      await sleep(1000);
+      await quicksort(0, arr.length - 1);
+      for(let k=0; k<arr.length; k++) {
+        if(container.children[k]) container.children[k].className = 'bar done';
+      }
+      await sleep(4000); // Hold sorted state before resetting
+    }
+  }
+  ambientSort();
 
-            const btn = document.querySelector('.fun-btn');
-            const rect = btn.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
+  // 3. Spider Noir "Glitch / Teleport" State Machine
+  const petImg = document.getElementById('pet-img');
+  const petContainer = document.getElementById('pet-container');
+  let isShooting = false;
+  const stances = ['stand.png', 'walk_left.png', 'walk_right.png'];
 
-            for (let i = 0; i < 50; i++) {
-                createConfetti(x, y);
-            }
-        }
+  // Teleportation Logic
+  function glitchTeleport() {
+    if (isShooting) return;
 
-        function createConfetti(x, y) {
-            const particle = document.createElement('div');
-            particle.style.position = 'fixed';
-            particle.style.width = '10px';
-            particle.style.height = '10px';
-            particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
-            particle.style.borderRadius = '50%';
-            particle.style.pointerEvents = 'none';
-            particle.style.zIndex = '100';
-            document.body.appendChild(particle);
+    // Pick a random X coordinate (keep it away from the extreme edges)
+    const maxX = window.innerWidth - 200;
+    const minX = 50;
+    const newX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+    
+    // Pick a random posture
+    const newStance = stances[Math.floor(Math.random() * stances.length)];
 
-            const angle = Math.random() * Math.PI * 2;
-            const velocity = 5 + Math.random() * 10;
-            const vx = Math.cos(angle) * velocity;
-            const vy = Math.sin(angle) * velocity;
+    petContainer.style.left = newX + 'px';
+    petImg.src = newStance;
+  }
 
-            let posX = x;
-            let posY = y;
-            let opacity = 1;
+  // Loop: Glitch to a new spot every 1.5 to 3.5 seconds
+  function scheduleNextGlitch() {
+    const nextTime = 1500 + Math.random() * 2000;
+    setTimeout(() => {
+      glitchTeleport();
+      scheduleNextGlitch();
+    }, nextTime);
+  }
 
-            function animate() {
-                posX += vx;
-                posY += vy + 2; // gravity
-                opacity -= 0.02;
+  // Loop: Shoot web EXACTLY every 7 seconds
+  setInterval(() => {
+    isShooting = true;
+    petImg.src = 'shoot.png';
+    
+    // Hold the shooting stance for 1.2 seconds before resuming
+    setTimeout(() => {
+      isShooting = false;
+      glitchTeleport(); // Immediately update stance/position after shooting
+    }, 1200);
+  }, 7000);
 
-                particle.style.left = posX + 'px';
-                particle.style.top = posY + 'px';
-                particle.style.opacity = opacity;
+  // Initialize
+  glitchTeleport();
+  scheduleNextGlitch();
 
-                if (opacity > 0) {
-                    requestAnimationFrame(animate);
-                } else {
-                    particle.remove();
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-
-        // Interactive background follows mouse
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            document.body.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
-        });
-
-    </script>
+</script>
 </body>
 </html>
