@@ -33,7 +33,6 @@
     background: radial-gradient(circle at center, #131731 0%, var(--bg) 100%);
   }
 
-  /* Glassmorphism Panels */
   .panel {
     background: var(--panel);
     border: 1px solid var(--panel-border);
@@ -44,160 +43,135 @@
     position: absolute;
   }
 
-  /* Typography */
-  h1 { font-family: 'Fira Code', 'JetBrains Mono', monospace; font-size: 26px; margin-bottom: 6px; letter-spacing: -0.5px;}
+  h1 { font-family: 'Fira Code', monospace; font-size: 26px; margin-bottom: 6px; letter-spacing: -0.5px;}
   h2 { font-size: 14px; color: var(--muted); margin-bottom: 12px; font-weight: 500; font-family: monospace; text-transform: uppercase; letter-spacing: 1px;}
-  .gradient-text {
-    background: linear-gradient(90deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
+  .gradient-text { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
   
-  .typewriter {
-    font-family: 'Fira Code', monospace;
-    color: var(--accent-2);
-    font-size: 13px;
-    min-height: 20px;
-    margin-top: 10px;
-  }
+  .typewriter { font-family: 'Fira Code', monospace; color: var(--accent-2); font-size: 13px; min-height: 20px; margin-top: 10px; }
   .typewriter::after { content: '|'; animation: blink 1s step-end infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 
-  /* 1. Top Left: Hero */
-  #hero { top: 40px; left: 40px; min-width: 280px; }
-
-  /* 2. Top Right: Repos (Fixed Overlap) */
-  #repos { 
-    top: 40px; 
-    right: 40px; 
-    width: 340px; 
-    max-height: 50vh; 
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: absolute;
+  #hero {
+    top: 40px;
+    left: 40px;
+    min-width: 280px;
+    z-index: 999;
   }
-  
+  /* Top Right: Repos */
+  #repos { 
+    top: 40px; right: 40px; width: 340px; max-height: 50vh; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; position: absolute;
+  }
   #repos::-webkit-scrollbar { width: 4px; }
   #repos::-webkit-scrollbar-thumb { background: var(--panel-border); border-radius: 4px; }
-  
-  .repo-card {
-    background: var(--panel);
-    border: 1px solid var(--panel-border);
-    border-radius: 8px;
-    padding: 16px;
-    transition: border-color 0.2s;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-  }
+  .repo-card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 8px; padding: 16px; transition: border-color 0.2s; cursor: pointer; backdrop-filter: blur(10px); }
   .repo-card:hover { border-color: var(--accent); }
   .repo-card h3 { font-family: monospace; color: var(--accent); font-size: 14px; margin-bottom: 6px; }
   .repo-card p { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
-  .repo-tag { 
-    font-size: 10px; 
-    font-family: monospace; 
-    background: rgba(167, 139, 250, 0.15); 
-    color: var(--accent-2); 
-    padding: 2px 6px; 
-    border-radius: 4px; 
-    display: inline-block;
-  }
+  .repo-tag { font-size: 10px; font-family: monospace; background: rgba(167, 139, 250, 0.15); color: var(--accent-2); padding: 2px 6px; border-radius: 4px; display: inline-block; }
 
-  /* 3. Bottom Left: Terminal Links */
+  /* Bottom Left: Links */
   #links { bottom: 40px; left: 40px; min-width: 280px; display: flex; flex-direction: column; gap: 12px; }
-  #links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-family: 'Fira Code', monospace;
-    font-size: 14px;
-    transition: color 0.2s, transform 0.2s;
-    display: inline-block;
-  }
+  #links a { color: var(--muted); text-decoration: none; font-family: 'Fira Code', monospace; font-size: 14px; transition: color 0.2s, transform 0.2s; display: inline-block; }
   #links a:hover { color: var(--accent); transform: translateX(5px); }
 
-  /* 4. Bottom Right: Raw Quicksort Visualizer */
-  #quicksort { 
-    position: absolute;
-    bottom: 0; 
-    right: 0; 
-    width: 45vw; /* Massive span across the right bottom */
-    height: 160px; 
+/* CENTER: Static Obstacle & Torus Container */
+  #center-matrix {
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 450px; height: 320px;
+    border-radius: 12px; border: 1px solid rgba(110, 231, 255, 0.2);
+    background: rgba(11, 13, 26, 0.7); box-shadow: 0 0 30px rgba(110, 231, 255, 0.05);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 50; /* Ensure it sits above the cats */
   }
-  #quicksort h2 {
-    position: absolute;
-    top: -30px;
-    right: 30px;
+
+  /* 3D ASCII Projection */
+  #torus {
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 13px;
+    color: var(--accent);
+    white-space: pre;
+    text-align: center;
+    font-weight: bold;
+    pointer-events: none;
   }
-  .bars-container {
-    display: flex;
-    align-items: flex-end;
-    width: 100%;
-    height: 100%;
-    gap: 1px;
-  }
-  .bar {
-    flex: 1;
-    background: var(--bar);
-    border-radius: 2px 2px 0 0;
-  }
+
+  /* Bottom Right: Quicksort */
+  #quicksort { position: absolute; bottom: 0; right: 0; width: 45vw; height: 160px; z-index: 10; border-left: 1px solid rgba(110, 231, 255, 0.2); background: rgba(11, 13, 26, 0.8);}
+  #quicksort h2 { position: absolute; top: -30px; left: 20px; }
+  .bars-container { display: flex; align-items: flex-end; width: 100%; height: 100%; gap: 1px; }
+  .bar { flex: 1; background: var(--bar); border-radius: 2px 2px 0 0; }
   .bar.active { background: var(--bar-active); }
   .bar.pivot { background: var(--bar-pivot); }
   .bar.swap { background: var(--bar-swap); }
   .bar.done { background: var(--bar-done); }
 
-  /* 5. Spider-Verse Teleporting Engine */
+  /* Animated Web Pet (Sprite Sheet Engine) */
   #pet-container {
-    position: fixed;
-    bottom: 20px;
-    left: 400px;
-    height: 160px;
-    z-index: 999;
-    pointer-events: none; 
-    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
-    transition: left 0.1s ease-out; /* Slight snap effect on teleport */
-  }
-  #pet-container img {
-    height: 100%;
-    width: auto;
+    position: fixed; bottom: 20px; left: 320px;
+    width: 100px; height: 100px; /* Adjust to match exactly one frame of your sprite */
+    z-index: 999; pointer-events: none;
+    transform: scaleX(1); /* 1 for right, -1 for left */
   }
 
-  @media (max-width: 900px) {
-    #repos { display: none; } 
-    #quicksort { width: 100vw; } /* On mobile, it spans the whole bottom */
+/* Cat Entity Positioning */
+  .cat-entity {
+    position: fixed;
+    width: 80px; height: 80px; /* Update this based on your sliced frame size */
+    z-index: 998; 
+    pointer-events: none;
+    /* Move registration point to center for accurate circle collision */
+    transform-origin: center center; 
   }
+  
+  /* 6-Frame Horizontal Cat Strip */
+  .sprite-cat {
+    width: 100%; height: 100%;
+    background-image: url('cat_strip.png'); 
+    background-size: 600% 100%; 
+  }
+  .walking-cat {
+    animation: walk-cat 0.6s steps(6) infinite;
+  }
+  
+  @keyframes walk-cat {
+    from { background-position: 0 0; }
+    to { background-position: -600% 0; }
+  }
+
 </style>
 </head>
 <body>
 
-  <!-- Top Left: Hero -->
   <div id="hero" class="panel">
     <h1>Nishant Kumar</h1>
     <h2>3rd Year <span class="gradient-text">@ IIT Delhi</span></h2>
     <div class="typewriter" id="typewriter"></div>
   </div>
 
-  <!-- Top Right: Repositories -->
   <div id="repos">
-    <div class="repo-card" onclick="window.open('https://github.com/nishantprime', '_blank')">
-      <h3>> Neural_Architecture</h3>
-      <p>High-performance feedforward implementation from scratch with backpropagation matrices.</p>
+    <div class="repo-card">
+      <h3>> Github 1</h3>
+      <p>github project description.</p>
       <span class="repo-tag">Python</span>
     </div>
-    <div class="repo-card" onclick="window.open('https://github.com/nishantprime', '_blank')">
-      <h3>> CP_Algorithms</h3>
-      <p>My competitive programming template library including Fenwick trees, Segment trees, and LCA.</p>
+    <div class="repo-card">
+      <h3>> Github 2</h3>
+      <p>github project description</p>
       <span class="repo-tag">C++</span>
     </div>
-    <div class="repo-card" onclick="window.open('https://github.com/nishantprime', '_blank')">
-      <h3>> Trade_Execution_Engine</h3>
-      <p>Low-latency synthetic limit order book matching engine simulator.</p>
+    <div class="repo-card">
+      <h3>> Github 3</h3>
+      <p>github project description</p>
       <span class="repo-tag">C++</span>
     </div>
   </div>
 
-  <!-- Bottom Left: Terminal Links -->
+<!-- Center Obstacle & ASCII Torus -->
+  <div id="center-matrix" class="panel">
+    <pre id="torus"></pre>
+  </div>
+
   <div id="links" class="panel">
     <h2>Terminal Links</h2>
     <a href="https://github.com/nishantprime" target="_blank">> GitHub</a>
@@ -207,16 +181,13 @@
     <a href="mailto:nishantkumarprime@gmail.com">> Email</a>
   </div>
 
-  <!-- Bottom Right: Raw Ambient Quicksort -->
   <div id="quicksort">
     <h2>> QUICKSORT (LOMUTO)</h2>
     <div class="bars-container" id="bars-container"></div>
   </div>
 
-  <!-- Animated Web Pet -->
-  <div id="pet-container">
-    <img id="pet-img" src="stand.png" alt="Spider Noir">
-  </div>
+<!-- 4 Bouncing Cat Entities -->
+  <div id="cat-1" class="cat-entity"><div class="sprite-cat walking-cat"></div></div>
 
 <script>
   // 1. Typewriter Engine
@@ -226,34 +197,22 @@
   
   function type() {
     const current = words[i];
-    if (isDeleting) {
-      tw.innerText = current.substring(0, j - 1);
-      j--;
-    } else {
-      tw.innerText = current.substring(0, j + 1);
-      j++;
-    }
+    if (isDeleting) { tw.innerText = current.substring(0, j - 1); j--; } 
+    else { tw.innerText = current.substring(0, j + 1); j++; }
     
     let speed = isDeleting ? 30 : 100;
-    if (!isDeleting && j === current.length) {
-      speed = 1500;
-      isDeleting = true;
-    } else if (isDeleting && j === 0) {
-      isDeleting = false;
-      i = (i + 1) % words.length;
-      speed = 500;
-    }
+    if (!isDeleting && j === current.length) { speed = 1500; isDeleting = true; } 
+    else if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; speed = 500; }
     setTimeout(type, speed);
   }
   type();
 
-  // 2. Ambient Quicksort (Optimized visual loop)
+  // 2. Ambient Quicksort
   const container = document.getElementById('bars-container');
   let arr = [];
-  const barCount = 100; // Increased density for larger window width
+  const barCount = 60; 
   
   function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-  
   function generateArray() {
     arr = Array.from({length: barCount}, () => Math.floor(Math.random() * 90) + 10);
     container.innerHTML = '';
@@ -278,39 +237,28 @@
     const pivot = arr[hi];
     container.children[hi].className = 'bar pivot';
     let i = lo;
-    
     for (let j = lo; j < hi; j++) {
       container.children[j].className = 'bar active';
-      await sleep(20); // Fast ambient execution
-      
+      await sleep(20); 
       if (arr[j] < pivot) {
         container.children[i].className = 'bar swap';
         container.children[j].className = 'bar swap';
         await sleep(20);
         
-        let temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-        
+        let temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
         container.children[i].style.height = `${arr[i]}%`;
         container.children[j].style.height = `${arr[j]}%`;
         
         container.children[i].className = 'bar';
         container.children[j].className = 'bar';
         i++;
-      } else {
-        container.children[j].className = 'bar';
-      }
+      } else { container.children[j].className = 'bar'; }
     }
-    
     container.children[i].className = 'bar swap';
     container.children[hi].className = 'bar swap';
     await sleep(30);
     
-    let temp = arr[i];
-    arr[i] = arr[hi];
-    arr[hi] = temp;
-    
+    let temp = arr[i]; arr[i] = arr[hi]; arr[hi] = temp;
     container.children[i].style.height = `${arr[i]}%`;
     container.children[hi].style.height = `${arr[hi]}%`;
     
@@ -327,58 +275,180 @@
       for(let k=0; k<arr.length; k++) {
         if(container.children[k]) container.children[k].className = 'bar done';
       }
-      await sleep(4000); // Hold sorted state before resetting
+      await sleep(4000); 
     }
   }
   ambientSort();
 
-  // 3. Spider Noir "Glitch / Teleport" State Machine
-  const petImg = document.getElementById('pet-img');
-  const petContainer = document.getElementById('pet-container');
-  let isShooting = false;
-  const stances = ['stand.png', 'walk_left.png', 'walk_right.png'];
-
-  // Teleportation Logic
-  function glitchTeleport() {
-    if (isShooting) return;
-
-    // Pick a random X coordinate (keep it away from the extreme edges)
-    const maxX = window.innerWidth - 200;
-    const minX = 50;
-    const newX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+// --- 3D ASCII TORUS RENDERER ---
+  let torusA = 0, torusB = 0;
+  const torusElement = document.getElementById('torus');
+  
+  function renderTorus() {
+    let b = [], z = [];
+    const width = 46, height = 22; // Terminal grid dimensions
     
-    // Pick a random posture
-    const newStance = stances[Math.floor(Math.random() * stances.length)];
+    // Clear buffers
+    for(let i = 0; i < width * height; i++) { 
+      b[i] = i % width === width - 1 ? '\n' : ' '; 
+      z[i] = 0; 
+    }
+    
+    // Parametric surface projection
+    for(let j = 0; j < 6.28; j += 0.07) {
+      for(let i = 0; i < 6.28; i += 0.02) {
+        let c = Math.sin(i), d = Math.cos(j), e = Math.sin(torusA), f = Math.sin(j),
+            g = Math.cos(torusA), h = d + 2, D = 1 / (c * h * e + f * g + 5),
+            l = Math.cos(i), m = Math.cos(torusB), n = Math.sin(torusB),
+            t = c * h * g - f * e;
 
-    petContainer.style.left = newX + 'px';
-    petImg.src = newStance;
+        let x = 0 | (width / 2 + 20 * D * (l * h * m - t * n)),
+            y = 0 | (height / 2 + 10 * D * (l * h * n + t * m)),
+            o = x + width * y,
+            N = 0 | (8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n));
+
+        // Z-Buffer occlusion check
+        if(y < height && y >= 0 && x >= 0 && x < width - 1 && D > z[o]) {
+          z[o] = D;
+          b[o] = ".,-~:;=!*#$@"[N > 0 ? N : 0];
+        }
+      }
+    }
+    if (torusElement) torusElement.innerText = b.join('');
+    torusA += 0.04; torusB += 0.02; // Rotation speeds
+  }
+  setInterval(renderTorus, 30);
+
+
+  // --- ADVANCED 2D PHYSICS ENGINE WITH LERPING & AABB OBSTACLES ---
+  const catRadius = 40; 
+
+  const bounds = {
+    minX: 40,
+    maxX: window.innerWidth * 0.62,
+    minY: 40,
+    maxY: window.innerHeight * 0.60
+  };
+  const cats = [1].map(id => {
+    let angle = Math.random() * Math.PI * 2;
+    let initialSpeed = 3 + Math.random() * 3;
+    return {
+      el: document.getElementById(`cat-${id}`),
+      sprite: document.querySelector(`#cat-${id} .sprite-cat`),
+      x: bounds.minX + Math.random() * (bounds.maxX - bounds.minX),
+      y: bounds.minY + Math.random() * (bounds.maxY - bounds.minY),
+      vx: Math.cos(angle) * initialSpeed,
+      vy: Math.sin(angle) * initialSpeed,
+      targetSpeed: initialSpeed,
+      speedChangeTimer: 0
+    };
+  });
+
+  function updatePhysics() {
+    // Dynamically calculate center obstacle boundaries every frame (in case of window resize)
+    const cw = 480; // Obstacle width + padding
+    const ch = 350; // Obstacle height + padding
+    const rectL = (window.innerWidth / 2) - (cw / 2);
+    const rectR = (window.innerWidth / 2) + (cw / 2);
+    const rectT = (window.innerHeight / 2) - (ch / 2);
+    const rectB = (window.innerHeight / 2) + (ch / 2);
+
+    // Stage 1: AI Speed Modulations (Lerping)
+    cats.forEach(cat => {
+      cat.speedChangeTimer -= 16;
+      if (cat.speedChangeTimer <= 0) {
+        // Randomly pick a new target speed magnitude (between 1.5 and 7 pixels per frame)
+        cat.targetSpeed = 1.5 + Math.random() * 5.5; 
+        cat.speedChangeTimer = 1500 + Math.random() * 3000; // Hold speed for 1.5 to 4.5 seconds
+      }
+
+      // Smoothly interpolate (Lerp) current velocity towards target speed
+      let currentSpeed = Math.sqrt(cat.vx * cat.vx + cat.vy * cat.vy);
+      if (currentSpeed > 0.1) {
+        let speedDiff = (cat.targetSpeed - currentSpeed) * 0.05; // 0.05 is the smoothing factor
+        let newSpeed = currentSpeed + speedDiff;
+        
+        // Normalize vector and apply new magnitude
+        cat.vx = (cat.vx / currentSpeed) * newSpeed;
+        cat.vy = (cat.vy / currentSpeed) * newSpeed;
+
+        // **THE MOONWALK FIX:** Sync CSS animation duration mathematically to current speed
+        // If 5px/frame takes 0.6s, then new duration = 0.6 * (5 / newSpeed)
+        let animDuration = 0.6 * (5 / newSpeed);
+        cat.sprite.style.animationDuration = `${animDuration}s`;
+      }
+    });
+
+    // Stage 2: Wall & Center Box AABB Collisions
+    cats.forEach(cat => {
+      let nextX = cat.x + cat.vx;
+      let nextY = cat.y + cat.vy;
+
+      // Outer Bounds Collision
+      if (nextX - catRadius <= bounds.minX) { cat.vx *= -1; nextX = bounds.minX + catRadius; }
+      else if (nextX + catRadius >= bounds.maxX) { cat.vx *= -1; nextX = bounds.maxX - catRadius; }
+      if (nextY - catRadius <= bounds.minY) { cat.vy *= -1; nextY = bounds.minY + catRadius; }
+      else if (nextY + catRadius >= bounds.maxY) { cat.vy *= -1; nextY = bounds.maxY - catRadius; }
+
+      // Center Obstacle Collision (AABB)
+      if (nextX + catRadius > rectL && nextX - catRadius < rectR &&
+          nextY + catRadius > rectT && nextY - catRadius < rectB) {
+        
+        // Calculate penetration depths to find the collision normal
+        let overlapL = (nextX + catRadius) - rectL;
+        let overlapR = rectR - (nextX - catRadius);
+        let overlapT = (nextY + catRadius) - rectT;
+        let overlapB = rectB - (nextY - catRadius);
+
+        let minOverlap = Math.min(overlapL, overlapR, overlapT, overlapB);
+
+        // Reflect the axis that caused the intersection
+        if (minOverlap === overlapL || minOverlap === overlapR) { cat.vx *= -1; }
+        if (minOverlap === overlapT || minOverlap === overlapB) { cat.vy *= -1; }
+      }
+
+      cat.x += cat.vx;
+      cat.y += cat.vy;
+    });
+
+    // Stage 3: Cat-to-Cat Elastic Collisions
+    for (let i = 0; i < cats.length; i++) {
+      for (let j = i + 1; j < cats.length; j++) {
+        let dx = cats[j].x - cats[i].x;
+        let dy = cats[j].y - cats[i].y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        let minDist = catRadius * 2;
+
+        if (distance < minDist) {
+          let nx = dx / distance;
+          let ny = dy / distance;
+          let overlap = minDist - distance;
+          
+          // Positional correction (prevents them from sinking into each other)
+          cats[i].x -= nx * (overlap / 2);
+          cats[i].y -= ny * (overlap / 2);
+          cats[j].x += nx * (overlap / 2);
+          cats[j].y += ny * (overlap / 2);
+
+          // Vector exchange
+          let tempVx = cats[i].vx; let tempVy = cats[i].vy;
+          cats[i].vx = cats[j].vx; cats[i].vy = cats[j].vy;
+          cats[j].vx = tempVx; cats[j].vy = tempVy;
+        }
+      }
+    }
+
+    // Stage 4: DOM Rendering
+    cats.forEach(cat => {
+      const scaleX = cat.vx < 0 ? -1 : 1;
+      cat.el.style.left = (cat.x - catRadius) + 'px';
+      cat.el.style.top = (cat.y - catRadius) + 'px';
+      cat.el.style.transform = `scaleX(${scaleX})`;
+    });
   }
 
-  // Loop: Glitch to a new spot every 1.5 to 3.5 seconds
-  function scheduleNextGlitch() {
-    const nextTime = 1500 + Math.random() * 2000;
-    setTimeout(() => {
-      glitchTeleport();
-      scheduleNextGlitch();
-    }, nextTime);
-  }
-
-  // Loop: Shoot web EXACTLY every 7 seconds
-  setInterval(() => {
-    isShooting = true;
-    petImg.src = 'shoot.png';
-    
-    // Hold the shooting stance for 1.2 seconds before resuming
-    setTimeout(() => {
-      isShooting = false;
-      glitchTeleport(); // Immediately update stance/position after shooting
-    }, 1200);
-  }, 7000);
-
-  // Initialize
-  glitchTeleport();
-  scheduleNextGlitch();
-
+  // Execute physics loop at ~60 FPS
+  setInterval(updatePhysics, 16);
 </script>
 </body>
 </html>
